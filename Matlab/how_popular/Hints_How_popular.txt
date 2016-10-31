@@ -1,0 +1,68 @@
+1: Weekday(Monday...Sunday) of the reference time
+2: Weekday (Monday...Sunday) of the date of publication of the article
+3...202: The 200 bag of words features for 200 frequent words of the text of the article
+203: The length of time between the publication of the article and reference time 
+204: The length of the article 
+205: Number of parent pages: we consider a article P as a parent of article B, if B is a reply (trackback) to article P. 
+206...208: Minimum, maximum, average number of comments that the parents received
+209: The difference of Attribute 212 and Attribute 211.
+210: Number of links (number of tracebacks) in the first 24 hours after the publication of the article, but before reference time
+211: Let T1 denote the datetime 48 hours before reference time, let T2 denote the datetime 24 hours before reference time. This attribute is the number of links (number of tracebacks) in the time period between T1 and T2
+212: Number of links (number of tracebacks) in the last 24 hours before the reference time 
+213: Total number of links (number of tracebacks) before reference time.
+214: The difference of Attribute 217 and Attribute 216.
+215: Number of comments in the first 24 hours after the publication of the article, but before reference time 
+216: Let T1 denote the datetime 48 hours before reference time, let T2 denote the datetime 24 hours before reference time. This attribute is the number of comments in the time period between T1 and T2 
+217: Number of comments in the last 24 hours before the reference time 
+218: Total number of comments before reference time
+
+219...268: 
+Min, Standard deviation, Median, Max and Average of the Attributes 51...60 for the source of the current article With source 
+we mean the website on which the post appeared. For example, http://www.collegehumor.com would be the source of the
+ article http://www.collegehumor.com/post/7035791/honest-resume-of-a-new-graduate.
+269(in train data): The observed number of comments on the article.
+
+
+%% ================ Part 3: Normal Equations ================
+
+fprintf('Solving with normal equations...\n');
+
+% ====================== YOUR CODE HERE ======================
+% Instructions: The following code computes the closed form 
+%               solution for linear regression using the normal
+%               equations. You should complete the code in 
+%               normalEqn.m
+%
+%               After doing so, you should complete this code 
+%               to predict the price of a 1650 sq-ft, 3 br house.
+
+% Load Data
+data = load('train.csv');
+X = data(:,[201,202,203,206,211,216]);
+y = data(:, size(data,2));
+m=length(y);
+
+% Add intercept term to X
+X = [ones(m, 1) X];
+
+% Calculate the parameters from the normal equation
+theta = normalEqn(X, y);
+
+% Display normal equation's result
+fprintf('Theta computed from the normal equations: \n');
+fprintf(' %f \n', theta);
+fprintf('\n');
+
+
+% Estimate the price of a 1650 sq-ft, 3 br house
+% ====================== YOUR CODE HERE ======================
+price = 0; % You should get  $293081.464335
+price =theta'*X(8,:)';
+
+% ============================================================
+
+fprintf(['Predicted price of a 1650 sq-ft, 3 br house ' ...
+         '(using normal equations):\n $%f\n'], price);
+
+
+t11=[6.76138368207773,0.130706890269639,0.0454850297417646,0.0390142891175153,0.0378438827816963,0.127579684655660,-0.603872156785794,1.51532219079724,1.66311376606676,-1.44897218794071,5.65140206092483,-2.84677744626209,0.736085544722497,7.31532016531951,-2.72209939195490,0.00595327492458637,-0.127753994428561,-0.0279079650677302,0.159970377274249,0.148890051892840,0.0455304074711935,0.191688728823378,-0.972065896967276,-0.310414753827538,-0.497247409517639,0.0818663978979359,-0.00191274967338990,0.333680295085844,0.0610374177281241,0.0844724802333645,1.92160425143398,0.293546812353121,0.0157193316125250,0.0447745466793097,0.397194077588509,-0.383460360673242,-0.0724140318640996,-0.439739300493440,0.208331513986665,0.927341401988512,0.972975990943029,-0.380010970672100,4.41544658413998,-0.430466421739526,0.185673723105126,1.36655261232118,-0.901312886544674,0.465053162859547,1.10366170518406,2.59775670084855,-0.437362674767499,1.26311827318855,0.206191933572399,1.03608852767563,2.80134310609187,-0.392380899951912,1.49752985279562,-0.493462398159421,0.936550751056664,1.19508792917791,-0.183470307954560,0.641732207085215];

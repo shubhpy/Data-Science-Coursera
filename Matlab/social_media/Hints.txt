@@ -1,0 +1,38 @@
+1st – ID,
+2nd - The ground truth for each row in the table: '1' means individual 'Kundan' is more influential than 'Hritik', and '0' means 'Hritik' is more influential than 'Kundan'.
+3rd to 9th attribute is about Kundan's interaction on the social network.
+3rd – Kundan follower count
+4th – Kundan following count
+5th – Kundan mentions received
+6th – Kundan retweets received
+7th – Kundan mentions sent
+8th – Kundan retweets sent
+9th – Kundan posts
+10th to 16th attribute is about Hritik's interaction on the social network in the same order as 3rd to 9th about Kundan's one.
+
+
+options = optimset('GradObj', 'on', 'MaxIter', 300);
+
+%  Run fminunc to obtain the optimal theta
+%  This function will return theta and the cost 
+[theta_k, cost_k] = ...
+	fminunc(@(t)(costFunction(t, Xk, y)), initial_theta_k, options);
+
+% Print theta_k to screen
+fprintf('Cost at theta found by fminunc for k : %f\n', cost_k);
+fprintf('theta_k: \n');
+fprintf(' %f \n', theta_k);
+
+[theta_h, cost_h] = ...
+	fminunc(@(t)(costFunction(t, Xh, y)), initial_theta_h, options);
+
+% Print theta_h to screen
+fprintf('Cost at theta found by fminunc for h : %f\n', cost_h);
+fprintf('theta_h: \n');
+fprintf(' %f \n', theta_h);
+
+
+cost_h=0.671143163239200;
+cost_k=0.647423614832234;
+theta_h=[0.032299978323821;-3.592257256965563e-07;-3.434769606899863e-08;-1.396291397482024e-08;-1.437252763911487e-07;-9.653326918033203e-06;-2.150668347800373e-04;-3.825655554421091e-04];
+theta_k=[-0.419501659698628;5.864628683585629e-08;-1.185441258000686e-07;0.002576145616893;9.548371275277965e-04;0.001187573373074;0.001148837953219;-0.001264373366799];
